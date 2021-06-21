@@ -1,0 +1,19 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace HomeWork1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int countMessage = 5;
+            for (int i = 1; i <= countMessage; i++)
+                Console.WriteLine("{0}: UserMessage", i);
+            Console.ReadKey();
+        }
+    }
+}
