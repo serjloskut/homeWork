@@ -1,0 +1,21 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace HomeWork1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int countCapture = 52;
+            int captureInRow = 3;
+            int countFullRow;
+            int captureRemainder;
+            Console.WriteLine("Заполненных рядов {0}, картинок сверх нормы {1}", countCapture/captureInRow, countCapture%captureInRow);
+            Console.ReadKey();
+        }
+    }
+}
