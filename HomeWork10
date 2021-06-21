@@ -1,0 +1,122 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace HomeWork1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string name="", password="";
+            int number1, number2, result;
+            bool continueWhile = true;
+            Console.WriteLine("Добро пожаловать в приложение");
+            while (continueWhile)
+            {
+                Console.WriteLine("\nВыберите команду:");
+                Console.WriteLine("Введите SetName или 1: Установить имя пользователя и пароль (может потребоваться пароль)");
+                Console.WriteLine("Введите SetPassword или 2: Установить пароль (требуется старый пароль)");
+                Console.WriteLine("Введите WriteName или 3: Вывести имя пользователя (требуется пароль)");
+                Console.WriteLine("Введите SumNumbers или 4: Сложить два числа");
+                Console.WriteLine("Введите CompareNumbers или 5: Сравнить два числа");
+                Console.WriteLine("Введите Quit или 6: Выйти из приложения");
+                switch (Console.ReadLine())
+                {
+                    case "1":
+                    case "SetName":
+                        if (name == "")
+                        {
+                            Console.WriteLine("Введите имя пользователя");
+                            name = Console.ReadLine();
+                            Console.WriteLine("Введите пароль");
+                            password = Console.ReadLine();
+                        }
+                        else
+                        {
+                            Console.WriteLine("Чтобы изменить имя пользователя и пароль, введите старый пароль");
+                            if (password == Console.ReadLine())
+                            {
+                                Console.WriteLine("Введите имя пользователя");
+                                name = Console.ReadLine();
+                                Console.WriteLine("Введите пароль");
+                                password = Console.ReadLine();
+                            }
+                            else
+                            {
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.WriteLine("Вы ввели неверный пароль!");
+                                Console.ForegroundColor = ConsoleColor.White;
+                            }
+                        }
+                        break;
+                    case "2":
+                    case "SetPassword":
+                        if (password == "")
+                        {
+                            Console.WriteLine("Введите пароль");
+                            password = Console.ReadLine();
+                        }
+                        else
+                        {
+                            Console.WriteLine("Введите старый пароль");
+                            if (password == Console.ReadLine())
+                            {
+                                Console.WriteLine("Введите пароль");
+                                password = Console.ReadLine();
+                            }
+                            else
+                                Console.WriteLine("Вы ввели неверный пароль!");
+                        }
+                        break;
+                        break;
+                    case "3":
+                    case "WriteName":
+                        Console.WriteLine("Введите пароль");
+                        if (password == Console.ReadLine())
+                            Console.WriteLine("Имя пользователя {0}", name);
+                        else
+                            Console.WriteLine("Вы ввели неверный пароль!");
+                        break;
+                    case "4":
+                    case "SumNumbers":
+                        Console.Write("Введите первое число: ");
+                        number1=Convert.ToInt32(Console.ReadLine());
+                        Console.Write("Введите первое число: ");
+                        number2 = Convert.ToInt32(Console.ReadLine());
+                        result = number1 + number2;
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Сумма чисел {0} и {1} равна {2}", number1, number2, result);
+                        Console.ForegroundColor = ConsoleColor.White;
+                        break;
+                    case "5":
+                    case "CompareNumbers":
+                        Console.Write("Введите первое число: ");
+                        number1 = Convert.ToInt32(Console.ReadLine());
+                        Console.Write("Введите первое число: ");
+                        number2 = Convert.ToInt32(Console.ReadLine());
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        if (number1>number2)
+                            Console.WriteLine("{0} больше {1}",number1, number2);
+                        else if(number1<number2)
+                            Console.WriteLine("{0} меньше {1}", number1, number2);
+                        else
+                            Console.WriteLine("{0} равно {1}", number1, number2);
+                        Console.ForegroundColor = ConsoleColor.White;
+                        break;
+                    case "6":
+                    case "Quit":
+                        continueWhile = false;
+                        break;
+                    default:
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Неизвестная команда");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        break;
+                }
+            }
+        }
+    }
+}
