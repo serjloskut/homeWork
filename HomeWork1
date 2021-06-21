@@ -1,0 +1,25 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace HomeWork1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int tableCount; //счетчик столов
+            double distanceTarget; //расстояние до цели
+            float distanceHome = 17.5f; //расстояние до дома
+            bool canСutDownTree = false; //может ли дерево быть срубленным (true - может, false - не может)
+            string messageForUser; //сообщение для пользователя
+            string error; //переменная для сообщения об ошибке
+            bool isDead = false; //состояние игрока (true - убит, false - жив)
+            bool isOpen; //состояние двери (true - открыта, false - закрыта)
+            double playerHeight; //рост игрока
+            int playerWeight;   //вес игрока
+        }
+    }
+}
