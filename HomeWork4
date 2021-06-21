@@ -1,0 +1,25 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace HomeWork1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int balanceGold;
+            int balanceCrystal;
+            int priceCrystal = 120;
+            Console.WriteLine("Введите начально е количество золота");
+            balanceGold = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Сколько кристалов по цене {0} золота Вы хотите купить?", priceCrystal);
+            balanceCrystal = Convert.ToInt32(Console.ReadLine());
+            balanceGold = balanceGold - priceCrystal * balanceCrystal;
+            Console.WriteLine("Остаток золота: {0}, остаток кристалов: {1}", balanceGold, balanceCrystal);
+            Console.ReadKey();
+        }
+    }
+}
