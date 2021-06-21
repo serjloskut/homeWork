@@ -1,0 +1,19 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace HomeWork1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int firstNumber = 7, lastNumber = 98, increment = 7;
+            for(int i = firstNumber; i<=lastNumber; i+=increment)
+                Console.Write("{0} ", i);
+            Console.ReadKey();
+        }
+    }
+}
