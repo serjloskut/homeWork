@@ -12,9 +12,9 @@ namespace HomeWork1
         {
             int countCapture = 52;
             int captureInRow = 3;
-            int countFullRow;
-            int captureRemainder;
-            Console.WriteLine("Заполненных рядов {0}, картинок сверх нормы {1}", countCapture/captureInRow, countCapture%captureInRow);
+            int countFullRow = countCapture/captureInRow;
+            int captureRemainder = countCapture%captureInRow;
+            Console.WriteLine("Заполненных рядов {0}, картинок сверх нормы {1}", countFullRow, captureRemainder);
             Console.ReadKey();
         }
     }
