@@ -1,0 +1,102 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace HomeWork1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            double amountExchange, balanceRub=1000.34, balanceUsd=50.23, balanceEur=17.40;
+            double exchangeUsdRub = 73.12, exchangeEurRub = 82.23;
+            bool continueExchange = true;
+            while (continueExchange) 
+            {
+                Console.WriteLine("На Вашем счете: {0} рублей, {1} долларов, {2} евро.", balanceRub, balanceUsd, balanceEur);
+                Console.WriteLine("Выберите направление обмена:");
+                Console.WriteLine("1. Рубль >> Доллар");
+                Console.WriteLine("2. Рубль >> Евро");
+                Console.WriteLine("3. Доллар >> Рубль");
+                Console.WriteLine("4. Доллар >> Евро");
+                Console.WriteLine("5. Евро >> Доллар");
+                Console.WriteLine("6. Евро >> Рубль");
+                Console.WriteLine("7. Выход из программы");
+                switch (Convert.ToInt32(Console.ReadLine()))
+                {
+                    case 1:
+                        Console.WriteLine("Введите сумму, которую хотите обменять по направлению Рубль >> Доллар:");
+                        amountExchange = Convert.ToDouble(Console.ReadLine());
+                        if (amountExchange > balanceRub)
+                            Console.WriteLine("У вас недостаточно средств для обмена!");
+                        else
+                        {
+                            balanceRub = balanceRub - amountExchange;
+                            balanceUsd = balanceUsd + amountExchange / exchangeUsdRub;
+                        }
+                        break;
+                    case 2:
+                        Console.WriteLine("Введите сумму, которую хотите обменять Рубль >> Евро:");
+                        amountExchange = Convert.ToDouble(Console.ReadLine());
+                        if (amountExchange > balanceRub)
+                            Console.WriteLine("У вас недостаточно средств для обмена!");
+                        else
+                        {
+                            balanceRub = balanceRub - amountExchange;
+                            balanceEur = balanceEur + amountExchange / exchangeEurRub;
+                        }
+                        break;
+                    case 3:
+                        Console.WriteLine("Введите сумму, которую хотите обменять Доллар >> Рубль:");
+                        amountExchange = Convert.ToDouble(Console.ReadLine());
+                        if (amountExchange > balanceUsd)
+                            Console.WriteLine("У вас недостаточно средств для обмена!");
+                        else
+                        {
+                            balanceUsd = balanceUsd - amountExchange;
+                            balanceRub = balanceRub + amountExchange * exchangeUsdRub;
+                        }
+                        break;
+                    case 4:
+                        Console.WriteLine("Введите сумму, которую хотите обменять Доллар >> Евро:");
+                        amountExchange = Convert.ToDouble(Console.ReadLine());
+                        if (amountExchange > balanceUsd)
+                            Console.WriteLine("У вас недостаточно средств для обмена!");
+                        else
+                        {
+                            balanceUsd = balanceUsd - amountExchange;
+                            balanceEur = balanceEur + amountExchange * exchangeUsdRub / exchangeEurRub;
+                        }
+                        break;
+                    case 5:
+                        Console.WriteLine("Введите сумму, которую хотите обменять Евро >> Доллар:");
+                        amountExchange = Convert.ToDouble(Console.ReadLine());
+                        if (amountExchange > balanceEur)
+                            Console.WriteLine("У вас недостаточно средств для обмена!");
+                        else
+                        {
+                            balanceEur = balanceEur - amountExchange;
+                            balanceUsd = balanceUsd + amountExchange / exchangeUsdRub * exchangeEurRub;
+                        }
+                        break;
+                    case 6:
+                        Console.WriteLine("Введите сумму, которую хотите обменять Евро >> Рубль:");
+                        amountExchange = Convert.ToDouble(Console.ReadLine());
+                        if (amountExchange > balanceEur)
+                            Console.WriteLine("У вас недостаточно средств для обмена!");
+                        else
+                        {
+                            balanceEur = balanceEur - amountExchange;
+                            balanceRub = balanceRub + amountExchange * exchangeEurRub;
+                        }
+                        break;
+                    case 7:
+                        continueExchange = false;
+                        break;
+                }
+            }
+        }
+    }
+}
