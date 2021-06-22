@@ -1,0 +1,224 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace HomeWork1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int balancePlayer = 600000;
+            int balanceEnemy = 800000;
+            int quantityOfGoodsPlayer = 0;
+            int quantityOfGoodsEnemy = 5;
+            int priceGoodsPlayer = 100000;
+            int priceGoodsEnemy = 110000;
+            int quantityBuyGoods = 5;
+            bool isRegistration = false;
+            int priceLegalRegistration = 100000;
+            int monthLegalregistration = 2;
+            int priceIllegalRegistration = 200000;
+            int monthIllegalregistration = 1;
+            int monthInspectionFrequency = 3;
+            int monthLastInspection=0;
+            int forfeitNoRegistration = 500000;
+            int profitPlayerPerMonth = 150000;
+            int profitEnemyPerMonth = 100000;
+            int lossFromLackOfSpace = 50000;
+            bool isSnitched = false;
+            int forfeitSnitched = 500000;
+            Console.WriteLine("Вы предприниматель. У вас есть {0} рублей на открытие и раскрутку бизнеса.\nВам нужно грамотно действовать, чтобы не прогореть.\nУ Вашего конкурента уже есть бизнес, оцениваемый в {1} рублей.",balancePlayer,balanceEnemy);
+            while(balancePlayer>=0 && balanceEnemy >= 0)
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("\nВаш баланс {0}, баланс конкурента {1}. У вас {2} единиц товара, у конкурента - {3}.\n", balancePlayer, balanceEnemy, quantityOfGoodsPlayer, quantityOfGoodsEnemy);
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("Выберите действие");
+                Console.WriteLine("1. Закупить 5 единиц товара стоимостью 500 тысяч рублей");
+                Console.WriteLine("2. Легально зарегистрировать бизнес за 2 месяца за 100 тысяч рублей");
+                Console.WriteLine("3. Подкупить чиновника и в течение месяца зарегистрировать бизнес за 400 тысяч рублей");
+                Console.WriteLine("4. Оставить все как есть");
+                Console.WriteLine("5. Настучать на конкурента в Роспотребнадзор");
+                switch (Convert.ToInt32(Console.ReadLine()))
+                {
+                    case 1:
+                        if (quantityOfGoodsPlayer == 0)
+                        {
+                            balancePlayer -= (quantityBuyGoods*priceGoodsPlayer);
+                            balanceEnemy += profitEnemyPerMonth;
+                            quantityOfGoodsPlayer = quantityBuyGoods;
+                            Console.WriteLine("Вы закупили {0} единиц товара за {1} рублей за штуку. Конкурент за это время заработал {2} рублей", quantityBuyGoods,priceGoodsPlayer,profitEnemyPerMonth);
+                        }
+                        else
+                        {
+                            balancePlayer += (profitPlayerPerMonth-lossFromLackOfSpace);
+                            balanceEnemy += profitEnemyPerMonth;
+                            quantityOfGoodsPlayer -= 1;
+                            quantityOfGoodsEnemy -= 1;
+                            Console.WriteLine("На складе недостаточно места. Вы потеряли время и часть прибыли.\nВаш конкурент заработал {0} тыс.рублей", profitEnemyPerMonth);
+                            if (quantityOfGoodsEnemy == 0)
+                            {
+                                quantityOfGoodsEnemy += quantityBuyGoods;
+                                balanceEnemy -= (priceGoodsEnemy*quantityBuyGoods);
+                                Console.WriteLine("Конкурент закупил {0} единиц товара за {1} рублей за штуку", quantityBuyGoods, priceGoodsEnemy);
+                            }
+                        }
+                        monthLastInspection += 1;
+                        if (isRegistration == false && monthLastInspection >= monthInspectionFrequency)
+                        {
+                            balancePlayer -= forfeitNoRegistration;
+                            monthLastInspection = 0;
+                            Console.WriteLine("Инспектор Вас оштрафовал на {0} рублей за отсутствие регистриации", forfeitNoRegistration);
+                        }
+                        break;
+                    case 2:
+                        if (isRegistration == false)
+                        {
+                            isRegistration = true;
+                            balancePlayer -= priceLegalRegistration;
+                            balanceEnemy += (monthLegalregistration * profitEnemyPerMonth);
+                            quantityOfGoodsEnemy -= monthLegalregistration;
+                            Console.WriteLine("Поздравляем. Вы зарегистрировали бизнес");
+                        }
+                        else
+                        {
+                            balanceEnemy += profitEnemyPerMonth;
+                            quantityOfGoodsEnemy -= monthLegalregistration;
+                            Console.WriteLine("У вас уже зарегистрирован бизнес. Вы потеряли время и ничего не заработали. Ва конкурент заработал {0} рублей", profitEnemyPerMonth);
+                        }
+                        break;
+                    case 3:
+                        if (isRegistration == false)
+                        {
+                            isRegistration = true;
+                            balancePlayer -= priceIllegalRegistration;
+                            balanceEnemy += (monthIllegalregistration * profitEnemyPerMonth);
+                            quantityOfGoodsEnemy -= monthIllegalregistration;
+                            Console.WriteLine("Поздравляем. Вы зарегистрировали бизнес");
+                        }
+                        else
+                        {
+                            balanceEnemy += profitEnemyPerMonth;
+                            quantityOfGoodsEnemy -= 1;
+                            Console.WriteLine("У вас уже зарегистрирован бизнес. Вы потеряли время и ничего не заработали. Ва конкурент заработал {0} рублей", profitEnemyPerMonth);
+                        }
+                        break;
+                    case 4:
+                        if (quantityOfGoodsPlayer > 0)
+                        {
+                            balancePlayer += profitPlayerPerMonth;
+                            quantityOfGoodsPlayer -= 1;
+                            Console.WriteLine("Прошел месяц рутинной работы");
+                        }
+                        else
+                        {
+                            quantityOfGoodsPlayer += quantityBuyGoods;
+                            balancePlayer -= (priceGoodsPlayer * quantityBuyGoods);
+                            Console.WriteLine("У вас кончился товар. Вы купили {0} единиц товара за {1} рублей за штуку", quantityBuyGoods,priceGoodsPlayer);
+                        }
+                        if (quantityOfGoodsEnemy > 0)
+                        {
+                            balanceEnemy += profitEnemyPerMonth;
+                            quantityOfGoodsEnemy -= 1;
+                            Console.WriteLine("Конкурент тоже отработал в плюс");
+                        }
+                        else
+                        {
+                            quantityOfGoodsEnemy += quantityBuyGoods;
+                            balanceEnemy -= (priceGoodsEnemy * quantityBuyGoods);
+                            Console.WriteLine("У конкурента кончился товар. Он купил {0} единиц товара за {1} рублей за штуку", quantityBuyGoods, priceGoodsEnemy);
+                        }
+                        if (isRegistration == false && monthLastInspection >= monthInspectionFrequency)
+                        {
+                            balancePlayer -= forfeitNoRegistration;
+                            monthLastInspection = 0;
+                            Console.WriteLine("Инспектор Вас оштрафовал на {0} рублей за отсутствие регистриации", forfeitNoRegistration);
+                        }
+                        break;
+                    case 5:
+                        if (isSnitched)
+                        {
+                            Console.WriteLine("Дважды настучать на конкурента нельзя");
+                            if (quantityOfGoodsPlayer > 0)
+                            {
+                                balancePlayer += profitPlayerPerMonth;
+                                quantityOfGoodsPlayer -= 1;
+                                Console.WriteLine("Прошел месяц рутинной работы");
+                            }
+                            else
+                            {
+                                quantityOfGoodsPlayer += quantityBuyGoods;
+                                balancePlayer -= (priceGoodsPlayer * quantityBuyGoods);
+                                Console.WriteLine("У вас кончился товар. Вы купили {0} единиц товара за {1} рублей за штуку", quantityBuyGoods, priceGoodsPlayer);
+                            }
+                            if (quantityOfGoodsEnemy > 0)
+                            {
+                                balanceEnemy += profitEnemyPerMonth;
+                                quantityOfGoodsEnemy -= 1;
+                                Console.WriteLine("Конкурент тоже отработал в плюс");
+                            }
+                            else
+                            {
+                                quantityOfGoodsEnemy += quantityBuyGoods;
+                                balanceEnemy -= (priceGoodsEnemy * quantityBuyGoods);
+                                Console.WriteLine("У конкурента кончился товар. Он купил {0} единиц товара за {1} рублей за штуку", quantityBuyGoods, priceGoodsEnemy);
+                            }
+                            if (isRegistration == false && monthLastInspection >= monthInspectionFrequency)
+                            {
+                                balancePlayer -= forfeitNoRegistration;
+                                monthLastInspection = 0;
+                                Console.WriteLine("Инспектор Вас оштрафовал на {0} рублей за отсутствие регистриации", forfeitNoRegistration);
+                            }
+                        }
+                        else
+                        {
+                            if (quantityOfGoodsPlayer > 0)
+                            {
+                                balancePlayer += profitPlayerPerMonth;
+                                quantityOfGoodsPlayer -= 1;
+                                Console.WriteLine("Прошел месяц рутинной работы");
+                            }
+                            else
+                            {
+                                quantityOfGoodsPlayer += quantityBuyGoods;
+                                balancePlayer -= (priceGoodsPlayer * quantityBuyGoods);
+                                Console.WriteLine("У вас кончился товар. Вы купили {0} единиц товара за {1} рублей за штуку", quantityBuyGoods, priceGoodsPlayer);
+                            }
+                            if (quantityOfGoodsEnemy > 0)
+                            {
+                                balanceEnemy += profitEnemyPerMonth;
+                                quantityOfGoodsEnemy -= 1;
+                                Console.WriteLine("Конкурент тоже отработал в плюс");
+                            }
+                            else
+                            {
+                                quantityOfGoodsEnemy += quantityBuyGoods;
+                                balanceEnemy -= (priceGoodsEnemy * quantityBuyGoods);
+                                Console.WriteLine("У конкурента кончился товар. Он купил {0} единиц товара за {1} рублей за штуку", quantityBuyGoods, priceGoodsEnemy);
+                            }
+                            if (isRegistration == false && monthLastInspection >= monthInspectionFrequency)
+                            {
+                                balancePlayer -= forfeitNoRegistration;
+                                monthLastInspection = 0;
+                                Console.WriteLine("Инспектор Вас оштрафовал на {0} рублей за отсутствие регистриации", forfeitNoRegistration);
+                            }
+                            isSnitched = true;
+                            balanceEnemy -= forfeitSnitched;
+                            Console.WriteLine("Конкурента оштрафовали на {0} рублей", forfeitSnitched);
+                        }
+                        break;
+                }
+            }
+            if(balanceEnemy < 0 && balancePlayer < 0)
+                Console.WriteLine("Вы оба банкроты");
+            else if (balancePlayer < 0)
+                Console.WriteLine("Твоя компания банкрот - ты проиграл");
+            else
+                Console.WriteLine("Конкурент банкрот - ты выйграл");
+            Console.ReadKey();
+        }
+    }
+}
