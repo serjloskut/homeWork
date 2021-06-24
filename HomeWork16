@@ -1,0 +1,48 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace HomeWork1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int maxElement = int.MinValue;
+            int rowMaxElement=0; int columnMaxElement=0;
+            int[,] arrayHomework = { { 7, 1, 2, 7, 6, 4, 2, 3, 2, 7 }, { 8, 3, 8, 7, 5, 6, 5, 2, 8, 7 }, { 8, 7, 2, 4, 5, 4, 6, 7, 2, 5 }, { 7, 6, 3, 5, 4, 8, 6, 7, 5, 1 }, { 6, 3, 5, 4, 7, 2, 8, 3, 3, 2 }, { 2, 5, 3, 4, 6, 4, 3, 7, 5, 8 }, { 3, 79, 5, 4, 8, 4, 8, 6, 7, 5 }, { 3, 7, 3, 4, 8, 4, 6, 8, 4, 6 }, { 3, 8, 4, 7, 8, 5, 8, 4, 8, 4 }, { 4, 5, 8, 4, 6, 3, 8, 5, 8, 4 } };
+            Console.SetCursorPosition(0, 2);
+            Console.WriteLine("Исходная матрица:");
+            for(int i = 0; i < arrayHomework.GetLength(0); i++)
+            {
+                for(int j = 0; j < arrayHomework.GetLength(1); j++)
+                {
+                    Console.Write(arrayHomework[i,j]+" ");
+                    if (maxElement < arrayHomework[i, j])
+                    {
+                        maxElement = arrayHomework[i, j];
+                        rowMaxElement = i;
+                        columnMaxElement = j;
+                    }
+                }
+                Console.WriteLine();
+            }
+            arrayHomework[rowMaxElement, columnMaxElement] = 0;
+            Console.SetCursorPosition(0, 0);
+            Console.Write($"Максимальный элемент в матрице равен {maxElement}");
+            Console.SetCursorPosition(0, arrayHomework.GetLength(0) + 4);
+            Console.WriteLine("Полученная матрица:");
+            for (int i = 0; i < arrayHomework.GetLength(0); i++)
+            {
+                for (int j = 0; j < arrayHomework.GetLength(1); j++)
+                {
+                    Console.Write(arrayHomework[i, j] + " ");
+                }
+                Console.WriteLine();
+            }
+            Console.ReadKey();
+        }
+    }
+}
