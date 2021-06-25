@@ -1,0 +1,170 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace HomeWork1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string[,] fullName = new string[0, 3];
+            string[] position = new string[0];
+            bool isContinueProgram = true;
+
+            Console.WriteLine("Программа для работы с досье." +
+                "\n1. Добавить досье" +
+                "\n2. Вывести все досье" +
+                "\n3. Удалить досье" +
+                "\n4. Поиск досье по фамилии" +
+                "\n5. Выход");
+
+            while (isContinueProgram)
+            {
+                Console.Write("\nВведите номер команды: ");
+
+                switch (Convert.ToInt32(Console.ReadLine()))
+                {
+                    case 1:
+                        fullName = AddFullNameOrPosition(fullName);
+                        position = AddFullNameOrPosition(position);
+                        FormattedOutput("Досье добавлено.", ConsoleColor.Green);
+                        break;
+                    case 2:
+                        printDossier(fullName, position);
+                        break;
+                    case 3:
+                        Console.Write("Введите номер досье: ");
+
+                        int numberDossierForDetele = Convert.ToInt32(Console.ReadLine());
+                        fullName = DeleteDossier(fullName, numberDossierForDetele);
+                        position = DeleteDossier(position, numberDossierForDetele);
+                        FormattedOutput("Досье удалено.", ConsoleColor.Red);
+                        break;
+                    case 4:
+                        Console.Write("Введите Фамилию: ");
+
+                        SearchDossierByLastName(fullName, position, Console.ReadLine());
+                        break;
+                    case 5:
+                        isContinueProgram = false;
+                        break;
+                }
+            }
+        }
+
+        static string[,] AddFullNameOrPosition(string[,] fullName)
+        {
+            string[,] tempFullName = new string[fullName.GetLength(0) + 1, 3];
+
+            for (int i = 0; i < fullName.GetLength(0); i++)
+            {
+                for (int j = 0; j < 3; j++)
+                    tempFullName[i, j] = fullName[i, j];
+            }
+
+            Console.Write("Введите Фамилию: ");
+            tempFullName[tempFullName.GetLength(0) - 1, 0] = Console.ReadLine();
+            Console.Write("Введите Имя: ");
+            tempFullName[tempFullName.GetLength(0) - 1, 1] = Console.ReadLine();
+            Console.Write("Введите Отчество: ");
+            tempFullName[tempFullName.GetLength(0) - 1, 2] = Console.ReadLine();
+
+            fullName = tempFullName;
+            return fullName;
+        }
+
+        static string[] AddFullNameOrPosition(string[] position)
+        {
+            string[] tempPosition = new string[position.Length + 1];
+
+            for (int i = 0; i < position.Length; i++)
+                tempPosition[i] = position[i];
+
+            Console.Write("Введите Должность: ");
+
+            tempPosition[tempPosition.Length - 1] = Console.ReadLine();
+            position = tempPosition;
+            return position;
+        }
+
+        static void printDossier(string[,] fullName, string[] position)
+        {
+            if (fullName.GetLength(0) < 1)
+            {
+                FormattedOutput("\nВ базе данных нет досье", ConsoleColor.Red);
+                return;
+            }
+
+            FormattedOutput("\nБаза досье:", ConsoleColor.Yellow);
+
+            for (int i = 0; i < fullName.GetLength(0); i++)
+            {
+                Console.WriteLine($"{i + 1}. {fullName[i, 0]} {fullName[i, 1]} {fullName[i, 2]} - {position[i]} ");
+            }
+        }
+
+        static string[,] DeleteDossier(string[,] fullName, int numberDossier)
+        {
+            string[,] tempFullName = new string[fullName.GetLength(0) - 1, 3];
+
+            for (int i = 0; i < fullName.GetLength(0); i++)
+            {
+                if (i < numberDossier - 1)
+                {
+                    for (int j = 0; j < 3; j++)
+                        tempFullName[i, j] = fullName[i, j];
+                }
+                else if (i > numberDossier - 1)
+                {
+                    for (int j = 0; j < 3; j++)
+                        tempFullName[i - 1, j] = fullName[i, j];
+                }
+            }
+
+            fullName = tempFullName;
+            return fullName;
+        }
+
+        static string[] DeleteDossier(string[] position, int numberDossier)
+        {
+            string[] tempPosition = new string[position.Length - 1];
+
+            for (int i = 0; i < position.Length; i++)
+            {
+                if (i < numberDossier - 1)
+                {
+                    tempPosition[i] = position[i];
+                }
+                else if (i > numberDossier - 1)
+                {
+                    tempPosition[i-1] = position[i];
+                }
+            }
+
+            position = tempPosition;
+            return position;
+        }
+
+        static void SearchDossierByLastName(string[,] fullName, string[] position, string lastName)
+        {
+            for (int i = 0; i < position.Length; i++)
+            {
+                if (fullName[i, 0] == lastName)
+                {
+                    FormattedOutput($"\n{i + 1}. {fullName[i, 0]} {fullName[i, 1]} {fullName[i, 2]} - {position[i]}", ConsoleColor.Green);
+                }
+            }
+        }
+
+        static void FormattedOutput(string text, ConsoleColor color)
+        {
+            ConsoleColor userColor = Console.ForegroundColor;
+            Console.ForegroundColor = color;
+            Console.WriteLine(text);
+            Console.ForegroundColor = userColor;
+        }
+    }
+}
