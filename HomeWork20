@@ -1,0 +1,45 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace HomeWork1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int healthPercent = 50;
+            int maxHealthPercent = 100;
+            int scaleBar = 10;
+            int positionLeft = 0;
+            int positionTop = 5;
+
+            DrawBar(healthPercent / scaleBar, maxHealthPercent / scaleBar, positionTop, positionLeft);
+
+            Console.ReadKey();
+        }
+
+        static void DrawBar(int value, int maxValue, int positionTop, int positionLeft, ConsoleColor color = ConsoleColor.Black)
+        {
+            string bar = "";
+            ConsoleColor defaultColor = Console.BackgroundColor;
+
+            Console.SetCursorPosition(positionLeft, positionTop);
+            Console.Write('[');
+            Console.BackgroundColor = color;
+
+            for (int i = 1; i < value; i++)
+                bar += '#';
+
+            Console.Write(bar);
+            bar = "";
+
+            for (int i = value; i <= maxValue; i++)
+                bar += '_';
+
+            Console.Write(bar + ']' + "\n");
+        }
+    }
+}
