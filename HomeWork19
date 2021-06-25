@@ -33,7 +33,7 @@ namespace HomeWork1
                         FormattedOutput("Досье добавлено.", ConsoleColor.Green);
                         break;
                     case 2:
-                        printDossier(fullName, position);
+                        PrintDossier(fullName, position);
                         break;
                     case 3:
                         Console.Write("Введите номер досье: ");
@@ -90,7 +90,7 @@ namespace HomeWork1
             return position;
         }
 
-        static void printDossier(string[,] fullName, string[] position)
+        static void PrintDossier(string[,] fullName, string[] position)
         {
             if (fullName.GetLength(0) < 1)
             {
