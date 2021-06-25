@@ -11,41 +11,42 @@ namespace HomeWork1
         static void Main(string[] args)
         {
             int maxElement = int.MinValue;
-            int rowMaxElement = 0; int columnMaxElement = 0;
-            int rowArrayHomework = 10; int colomnArrayHomework = 10;
-            int[,] arrayHomework = new int[rowArrayHomework,colomnArrayHomework];
-            Random randomElement = new Random();
+            int rowsArray = 10; 
+            int colomnsArray = 10;
+            int[,] array = new int[rowsArray, colomnsArray];
+            Random random = new Random();
 
             Console.SetCursorPosition(0, 2);
             Console.WriteLine("Исходная матрица:");
 
-            for (int i = 0; i < arrayHomework.GetLength(0); i++)
+            for (int i = 0; i < array.GetLength(0); i++)
             {
-                for (int j = 0; j < arrayHomework.GetLength(1); j++)
+                for (int j = 0; j < array.GetLength(1); j++)
                 {
-                    arrayHomework[i, j] = randomElement.Next(1, 11);
-                    Console.Write(arrayHomework[i, j] + " ");
+                    array[i, j] = random.Next(1, 11);
+                    Console.Write(array[i, j] + " ");
 
-                    if (maxElement < arrayHomework[i, j]) maxElement = arrayHomework[i, j];
+                    if (maxElement < array[i, j]) 
+                        maxElement = array[i, j];
                 }
                 Console.WriteLine();
             }
 
             Console.SetCursorPosition(0, 0);
             Console.Write($"Максимальный элемент в матрице равен {maxElement}");
-            Console.SetCursorPosition(0, arrayHomework.GetLength(0) + 4);
+            Console.SetCursorPosition(0, array.GetLength(0) + 4);
             Console.WriteLine("Полученная матрица:");
 
-            for (int i = 0; i < arrayHomework.GetLength(0); i++)
+            for (int i = 0; i < array.GetLength(0); i++)
             {
-                for (int j = 0; j < arrayHomework.GetLength(1); j++)
+                for (int j = 0; j < array.GetLength(1); j++)
                 {
-                    if (arrayHomework[i, j] == maxElement)
+                    if (array[i, j] == maxElement)
                     {
-                        arrayHomework[i, j] = 0;
+                        array[i, j] = 0;
                     }
 
-                    Console.Write(arrayHomework[i, j] + " ");
+                    Console.Write(array[i, j] + " ");
                 }
                 Console.WriteLine();
             }
