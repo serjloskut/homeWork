@@ -10,13 +10,13 @@ namespace HomeWork1
     {
         static void Main(string[] args)
         {
-            bool continueWhile = true;
+            bool isContinueWhile = true;
             int sum = 0;
             string command = string.Empty;
             int[] arrayNumbers = new int[0];
             Console.WriteLine("Введите число и нажмите Enter или:\nSum - чтобы вывести сумму введенных чисел;\nExit - выйти из программы\n");
 
-            while (continueWhile)
+            while (isContinueWhile)
             {
                 Console.Write("Введите команду: ");
                 command = Console.ReadLine().ToLower();
@@ -32,10 +32,9 @@ namespace HomeWork1
                         Console.WriteLine("Сумма = " + sum + "\n");
 
                         sum = 0;
-                        arrayNumbers = new int[0];
                         break;
                     case "exit":
-                        continueWhile = false;
+                        isContinueWhile = false;
                         break;
                     default:
                         int[] tempArrayNumbers = new int[arrayNumbers.Length + 1];
