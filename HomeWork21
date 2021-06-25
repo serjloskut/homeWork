@@ -10,26 +10,18 @@ namespace HomeWork1
     {
         static void Main(string[] args)
         {
-            string number;
-            int result;
-            result=TryParseNumber(out number);
+            TryParseNumber();
         }
 
-        static int TryParseNumber(out string number)
+        static int TryParseNumber()
         {
-            number = "";
-            int result=0;
-            bool isParse = false;
-
-            while (!isParse)
+            while (true)
             {
                 if (int.TryParse(Console.ReadLine(), out int res))
                 {
-                    isParse = true;
                     return res;
                 }
             }
-            return result;
         }
     }
 }
