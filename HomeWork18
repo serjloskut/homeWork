@@ -1,0 +1,55 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace HomeWork1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            bool continueWhile = true;
+            int sum = 0;
+            string command = string.Empty;
+            int[] arrayNumbers = new int[0];
+            Console.WriteLine("Введите число и нажмите Enter или:\nSum - чтобы вывести сумму введенных чисел;\nExit - выйти из программы\n");
+
+            while (continueWhile)
+            {
+                Console.Write("Введите команду: ");
+                command = Console.ReadLine().ToLower();
+
+                switch (command)
+                {
+                    case "sum":
+                        for (int i = 0; i < arrayNumbers.Length; i++)
+                        {
+                            sum += arrayNumbers[i];
+                        }
+
+                        Console.WriteLine("Сумма = " + sum + "\n");
+
+                        sum = 0;
+                        arrayNumbers = new int[0];
+                        break;
+                    case "exit":
+                        continueWhile = false;
+                        break;
+                    default:
+                        int[] tempArrayNumbers = new int[arrayNumbers.Length + 1];
+
+                        for (int i = 0; i < arrayNumbers.Length; i++)
+                        {
+                            tempArrayNumbers[i] = arrayNumbers[i];
+                        }
+
+                        tempArrayNumbers[tempArrayNumbers.Length - 1] = Convert.ToInt32(command);
+                        arrayNumbers = tempArrayNumbers;
+                        break;
+                }
+            }
+        }
+    }
+}
