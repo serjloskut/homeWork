@@ -10,18 +10,27 @@ namespace HomeWork1
     {
         static void Main(string[] args)
         {
-            int numberRowForSumm=1, numberColumnForMultiplication=1, resultSumm=0, resultMmltiplication=1;
-            int[,] arrayHomework = { { 63, 75, 27, 49, 53, 87, 90 }, { 23, 45, 74, 26, 97, 43, 27 }, { 23, 45, 89, 40, 26, 87, 36 } };
+            int numberRowForSumm = 1, numberColumnForMultiplication = 1, resultSumm = 0, resultMmltiplication = 1;
+            int rowArrayHomework = 3; int colomnArrayHomework = 10;
+            int[,] arrayHomework = new int[rowArrayHomework,colomnArrayHomework];
+            Random randomElement = new Random();
+
             for (int i = 0; i < arrayHomework.GetLength(0); i++)
             {
                 for (int j = 0; j < arrayHomework.GetLength(1); j++)
+                {
+                    arrayHomework[i, j] = randomElement.Next(10, 100);
                     Console.Write(arrayHomework[i, j] + " ");
+                }
                 Console.WriteLine("");
             }
+
             for (int i = 0; i < arrayHomework.GetLength(1); i++)
-                resultSumm += arrayHomework[numberRowForSumm-1,i];
+                resultSumm += arrayHomework[numberRowForSumm - 1, i];
+
             for (int i = 0; i < arrayHomework.GetLength(0); i++)
                 resultMmltiplication *= arrayHomework[i, numberColumnForMultiplication - 1];
+
             Console.WriteLine($"Сумма {numberRowForSumm} строки равна {resultSumm}");
             Console.WriteLine($"Произведение чисел из {numberColumnForMultiplication} столбца равна {resultMmltiplication}");
             Console.ReadKey();
