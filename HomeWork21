@@ -1,0 +1,35 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace HomeWork1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string number;
+            int result;
+            result=TryParseNumber(out number);
+        }
+
+        static int TryParseNumber(out string number)
+        {
+            number = "";
+            int result=0;
+            bool isParse = false;
+
+            while (!isParse)
+            {
+                if (int.TryParse(Console.ReadLine(), out int res))
+                {
+                    isParse = true;
+                    return res;
+                }
+            }
+            return result;
+        }
+    }
+}
