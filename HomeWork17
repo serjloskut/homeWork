@@ -10,19 +10,25 @@ namespace HomeWork1
     {
         static void Main(string[] args)
         {
-            int[] arrayHomework = { 8, 7, 2, 4, 5, 4, 6, 7, 2, 5, 7, 6, 3, 5, 4, 8, 6, 7, 5, 1, 6, 3, 5, 4, 7, 2, 8, 3, 3, 2 };
+            int[] arrayHomework = new int[10];
+            Random randomElement = new Random();
+
             for (int i = 0; i < arrayHomework.Length; i++)
             {
+                arrayHomework[i] = randomElement.Next(10,100);
+
                 if (i == 0)
                 {
                     if (arrayHomework[i] > arrayHomework[i + 1])
                         Console.Write(arrayHomework[i] + " ");
                 }
+
                 else if (i == (arrayHomework.Length - 1))
                 {
                     if (arrayHomework[i] > arrayHomework[i - 1])
                         Console.Write(arrayHomework[i] + " ");
                 }
+
                 else
                 {
                     if (arrayHomework[i] > arrayHomework[i - 1] && arrayHomework[i] > arrayHomework[i + 1])
