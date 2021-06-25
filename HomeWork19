@@ -28,9 +28,9 @@ namespace HomeWork1
                 switch (Convert.ToInt32(Console.ReadLine()))
                 {
                     case 1:
-                        fullName = AddFullNameOrPosition(fullName);
-                        position = AddFullNameOrPosition(position);
-                        FormattedOutput("Досье добавлено.", ConsoleColor.Green);
+                        fullName = AddFullName(fullName);
+                        position = AddPosition(position);
+                        WriteMessage("Досье добавлено.", ConsoleColor.Green);
                         break;
                     case 2:
                         PrintDossier(fullName, position);
@@ -41,7 +41,7 @@ namespace HomeWork1
                         int numberDossierForDetele = Convert.ToInt32(Console.ReadLine());
                         fullName = DeleteDossier(fullName, numberDossierForDetele);
                         position = DeleteDossier(position, numberDossierForDetele);
-                        FormattedOutput("Досье удалено.", ConsoleColor.Red);
+                        WriteMessage("Досье удалено.", ConsoleColor.Red);
                         break;
                     case 4:
                         Console.Write("Введите Фамилию: ");
@@ -55,7 +55,7 @@ namespace HomeWork1
             }
         }
 
-        static string[,] AddFullNameOrPosition(string[,] fullName)
+        static string[,] AddFullName(string[,] fullName)
         {
             string[,] tempFullName = new string[fullName.GetLength(0) + 1, 3];
 
@@ -76,7 +76,7 @@ namespace HomeWork1
             return fullName;
         }
 
-        static string[] AddFullNameOrPosition(string[] position)
+        static string[] AddPosition(string[] position)
         {
             string[] tempPosition = new string[position.Length + 1];
 
@@ -94,11 +94,11 @@ namespace HomeWork1
         {
             if (fullName.GetLength(0) < 1)
             {
-                FormattedOutput("\nВ базе данных нет досье", ConsoleColor.Red);
+                WriteMessage("\nВ базе данных нет досье", ConsoleColor.Red);
                 return;
             }
 
-            FormattedOutput("\nБаза досье:", ConsoleColor.Yellow);
+            WriteMessage("\nБаза досье:", ConsoleColor.Yellow);
 
             for (int i = 0; i < fullName.GetLength(0); i++)
             {
@@ -140,7 +140,7 @@ namespace HomeWork1
                 }
                 else if (i > numberDossier - 1)
                 {
-                    tempPosition[i-1] = position[i];
+                    tempPosition[i - 1] = position[i];
                 }
             }
 
@@ -154,12 +154,12 @@ namespace HomeWork1
             {
                 if (fullName[i, 0] == lastName)
                 {
-                    FormattedOutput($"\n{i + 1}. {fullName[i, 0]} {fullName[i, 1]} {fullName[i, 2]} - {position[i]}", ConsoleColor.Green);
+                    WriteMessage($"\n{i + 1}. {fullName[i, 0]} {fullName[i, 1]} {fullName[i, 2]} - {position[i]}", ConsoleColor.Green);
                 }
             }
         }
 
-        static void FormattedOutput(string text, ConsoleColor color)
+        static void WriteMessage(string text, ConsoleColor color)
         {
             ConsoleColor userColor = Console.ForegroundColor;
             Console.ForegroundColor = color;
