@@ -15,13 +15,20 @@ namespace HomeWork1
 
         static int TryParseNumber()
         {
-            while (true)
+            bool isParse = false;
+            while (!isParse)
             {
-                if (int.TryParse(Console.ReadLine(), out int res))
+                isParse = int.TryParse(Console.ReadLine(), out int resultParse);
+
+                if (isParse)
                 {
-                    return res;
+                    Console.WriteLine("Вы ввели число: " + resultParse);
+                    return resultParse;
                 }
+                else
+                    Console.WriteLine("Неверный ввод, попробуйте снова");
             }
+            return 0;
         }
     }
 }
