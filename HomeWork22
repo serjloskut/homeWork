@@ -1,0 +1,116 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+
+namespace HomeWork1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string mapName = "map1";
+            int playerX;
+            int playerY;
+            int playerDX = 0;
+            int playerDY = 1;
+            char[,] map = ReadMap(mapName, out playerX, out playerY);
+            bool isPlaying = true;
+
+            Console.CursorVisible = false;
+            DrawMap(map);
+
+            while (isPlaying)
+            {
+                if (Console.KeyAvailable)
+                {
+                    PressKey(ref playerDX, ref playerDY, ref isPlaying);
+                }
+
+                if (map[playerX + playerDX, playerY + playerDY] != '#')
+                {
+                    Move(ref playerX, ref playerY, playerDX, playerDY);
+                }
+
+                System.Threading.Thread.Sleep(100);
+            }
+        }
+
+        static void PressKey(ref int DX, ref int DY, ref bool isPlaying)
+        {
+            ConsoleKeyInfo key = Console.ReadKey(true);
+
+            switch (key.Key)
+            {
+                case ConsoleKey.UpArrow:
+
+                    DX = -1;
+                    DY = 0;
+                    break;
+                case ConsoleKey.DownArrow:
+                    DX = 1;
+                    DY = 0;
+                    break;
+                case ConsoleKey.LeftArrow:
+                    DX = 0;
+                    DY = -1;
+                    break;
+                case ConsoleKey.RightArrow:
+                    DX = 0;
+                    DY = 1;
+                    break;
+                case ConsoleKey.Escape:
+                    isPlaying = false;
+                    break;
+            }
+        }
+
+        static void Move(ref int X, ref int Y, int DX, int DY)
+        {
+            Console.SetCursorPosition(Y, X);
+            Console.Write(' ');
+
+            X += DX;
+            Y += DY;
+
+            Console.SetCursorPosition(Y, X);
+            Console.Write('@');
+        }
+
+        static char[,] ReadMap(string mapName, out int playerX, out int playerY)
+        {
+            playerX = 0;
+            playerY = 0;
+            string[] newFile = File.ReadAllLines($"Maps/{mapName}.txt");
+            char[,] map = new char[newFile.Length, newFile[1].Length];
+
+            for (int i = 0; i < newFile.Length; i++)
+            {
+                for (int j = 0; j < newFile[0].Length; j++)
+                {
+                    map[i, j] = newFile[i][j];
+
+                    if (map[i, j] == '@')
+                    {
+                        playerX = i;
+                        playerY = j;
+                    }
+                }
+            }
+            return map;
+        }
+
+        static void DrawMap(char[,] mapName)
+        {
+            for (int i = 0; i < mapName.GetLength(0); i++)
+            {
+                for (int j = 0; j < mapName.GetLength(1); j++)
+                    Console.Write(mapName[i, j]);
+
+                Console.WriteLine();
+            }
+        }
+    }
+}
