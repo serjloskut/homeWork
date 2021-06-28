@@ -11,7 +11,7 @@ namespace HomeWork1
     {
         static void Main(string[] args)
         {
-            int[,] array = new int[10, 10];
+            int[,] array = new int[20, 20];
             Random random = new Random();
 
             for (int i = 0; i < array.GetLength(0); i++)
@@ -24,7 +24,7 @@ namespace HomeWork1
 
             OutputArray(array);
             Console.WriteLine();
-            Shuffle(array);
+            array=Shuffle(array, random);
             OutputArray(array);
             Console.ReadKey();
         }
@@ -40,52 +40,30 @@ namespace HomeWork1
             }
         }
 
-        static void Shuffle(int[,] array)
+        static int[,] Shuffle(int[,] array, Random random)
         {
-            int rowArrayFrom;
-            int rowArrayTo;
-            int colomnArrayFrom;
-            int colomnArrayTo;
-            int elementArrayFrom;
-            int elementArrayTo;
-            int tempElementArray;
-            Random random = new Random();
+            int rowElement;
+            int colomnElement;
 
-            for (int col = 0; col < 100; col++)
+            int[,] tempArray = new int[array.GetLength(0),array.GetLength(1)];
+
+            for(int i = 0; i < tempArray.GetLength(0); i++)
             {
-                switch (random.Next(1, 4))
+                for(int j = 0; j < tempArray.GetLength(1); j++)
                 {
-                    case 1:
-                        rowArrayFrom = random.Next(0, array.GetLength(0));
-                        rowArrayTo = random.Next(0, array.GetLength(0));
+                    do
+                    {
+                        rowElement = random.Next(0, array.GetLength(0));
+                        colomnElement = random.Next(0, array.GetLength(1));
+                        tempArray[i, j] = array[rowElement, colomnElement];
+                    }
+                    while (array[rowElement, colomnElement]==0);
 
-                        for (int i = 0; i < array.GetLength(1); i++)
-                        {
-                            tempElementArray = array[rowArrayTo, i];
-                            array[rowArrayTo, i] = array[rowArrayFrom, i];
-                            array[rowArrayFrom, i] = tempElementArray;
-                        }
-                        break;
-                    case 2:
-                        colomnArrayFrom = random.Next(0, array.GetLength(1));
-                        colomnArrayTo = random.Next(0, array.GetLength(1));
-
-                        for (int i = 0; i < array.GetLength(0); i++)
-                        {
-                            tempElementArray = array[i, colomnArrayTo];
-                            array[i, colomnArrayTo] = array[i, colomnArrayFrom];
-                            array[i, colomnArrayFrom] = tempElementArray;
-                        }
-                        break;
-                    case 3:
-                        elementArrayFrom = array[random.Next(0, array.GetLength(0)), random.Next(0, array.GetLength(1))];
-                        elementArrayTo = array[random.Next(0, array.GetLength(0)), random.Next(0, array.GetLength(1))];
-                        tempElementArray = elementArrayTo;
-                        elementArrayTo = elementArrayFrom;
-                        elementArrayFrom = elementArrayTo;
-                        break;
+                    array[rowElement, colomnElement] = 0;
                 }
             }
+
+            return tempArray;
         }
     }
 }
